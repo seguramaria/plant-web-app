@@ -1,74 +1,106 @@
+import { useState } from 'react';
+import {
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Link,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from '@mui/material';
+import CardMedia from '@mui/material/CardMedia';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
 const Header = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleCartClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <header className='py-5 header'>
-      <div className='container-xl'>
-        <div className='row justify-content-center justify-content-md-between'>
-          <div className='col-8 col-md-3'>
-            <a href='index.html'>
-              <img className='img-fluid' src='./img/logo.svg' alt='logo' />
-            </a>
-          </div>
-          <nav className='col-md-6 a mt-5 d-flex align-items-start justify-content-end'>
-            <div className='shopping-cart'>
-              <img
-                className='img-fluid'
-                src='./img/shopping-cart.png'
-                alt='imagen shopping-cart'
-              />
+    <AppBar
+      position='static'
+      sx={{
+        py: 5,
+        backgroundImage: `url('./img/header.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <Toolbar sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
+        <Box
+          sx={{
+            flexBasis: { xs: '100%', md: '25%' },
+            textAlign: 'center',
+            mb: 2,
+          }}
+        >
+          <Link href='index.html' width='40px'>
+            <CardMedia component='img' src='./img/logo.svg' alt='logo' />
+          </Link>
+        </Box>
+        <Box
+          sx={{
+            flexBasis: { xs: '100%', md: '70%' },
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+          }}
+        >
+          <IconButton
+            aria-controls='shopping-cart-menu'
+            aria-haspopup='true'
+            onClick={handleCartClick}
+            color='inherit'
+          >
+            <ShoppingCartIcon />
+          </IconButton>
+          <Menu
+            id='shopping-cart-menu'
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem key='1'>
+              <Box display='flex' justifyContent='space-between' width='100%'>
+                <CardMedia
+                  component='img'
+                  height='50'
+                  image={`./img/image_1.webp`}
+                  alt={'monstera'}
+                />
 
-              <div id='shopping-cart' className='bg-white p-3'>
-                <p className='text-center'>Empty</p>
-                <table className='w-100 table'>
-                  <thead>
-                    <tr>
-                      <th>Image</th>
-                      <th>Name</th>
-                      <th>Price</th>
-                      <th>Quanty</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <img
-                          className='img-fluid'
-                          src='./img/plant_2.webp'
-                          alt='plant image'
-                        />
-                      </td>
-                      <td>KOKEDAMA</td>
-                      <td className='fw-bold'>30$</td>
-                      <td className='flex align-items-start gap-4'>
-                        <button type='button' className='btn btn-dark'>
-                          -
-                        </button>
-                        1
-                        <button type='button' className='btn btn-dark'>
-                          +
-                        </button>
-                      </td>
-                      <td>
-                        <button className='btn btn-danger' type='button'>
-                          X
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <Typography>Monstera</Typography>
+                <Typography>30</Typography>
+                <Box display='flex' alignItems='center'>
+                  <IconButton size='small'>-</IconButton>
+                  <Typography>1</Typography>
+                  <IconButton size='small'>+</IconButton>
+                </Box>
+                <IconButton size='small' color='error'>
+                  X
+                </IconButton>
+              </Box>
+            </MenuItem>
 
-                <p className='text-end'>
-                  Total: <span className='fw-bold'>30$</span>
-                </p>
-                <button className='btn btn-dark w-100 mt-3 p-2'>
-                  Empty cart
-                </button>
-              </div>
-            </div>
-          </nav>
-        </div>
-      </div>
-    </header>
+            <MenuItem>
+              <Typography>Total: 30$</Typography>
+            </MenuItem>
+            <MenuItem>
+              <Button variant='text'>Empty cart</Button>
+            </MenuItem>
+          </Menu>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 };
 
