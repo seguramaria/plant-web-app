@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   IconButton,
-  Link,
   Menu,
   MenuItem,
   Toolbar,
@@ -35,17 +34,14 @@ const Header = ({ cart }) => {
         backgroundPosition: 'center',
       }}
     >
-      <Toolbar sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
+      <Toolbar sx={{ justifyContent: 'space-evenly', alignItems: 'center' }}>
         <Box
           sx={{
-            flexBasis: { xs: '100%', md: '25%' },
-            textAlign: 'center',
+            width: '14rem',
             mb: 2,
           }}
         >
-          <Link href='index.html' width='40px'>
-            <CardMedia component='img' src='./img/logo.svg' alt='logo' />
-          </Link>
+          <CardMedia component='img' src='./img/logo.svg' alt='logo' />
         </Box>
         <Box
           sx={{
@@ -55,14 +51,20 @@ const Header = ({ cart }) => {
             alignItems: 'center',
           }}
         >
-          <IconButton
-            aria-controls='shopping-cart-menu'
-            aria-haspopup='true'
-            onClick={handleCartClick}
+          <Button
+            variant='outlined'
             color='inherit'
+            startIcon={<ShoppingCartIcon />}
+            onClick={handleCartClick}
+            sx={{
+              '&:hover': {
+                backgroundColor: '#548954',
+                borderColor: '#548954',
+              },
+            }}
           >
-            <ShoppingCartIcon />
-          </IconButton>
+            (0)
+          </Button>
           <Menu
             id='shopping-cart-menu'
             anchorEl={anchorEl}
