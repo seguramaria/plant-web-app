@@ -8,15 +8,29 @@ import { CssBaseline } from '@mui/material';
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     setProducts(data);
   }, []);
 
+  const addToCart = (product) => {
+    const isProductAdded = cart.findIndex((item) => item.id === product.id);
+
+    if (isProductAdded >= 0) {
+      const updatedCart = [...cart];
+      updatedCart[isProductAdded].quantity++;
+      setCart(updatedCart);
+    } else {
+      product.quantity = 1;
+      setCart((prevCart) => [...prevCart, product]);
+    }
+  };
+
   return (
     <>
       <CssBaseline />
-      <Header />
+      <Header cart={cart} />
       <Grid
         container
         alignItems='center'
@@ -25,7 +39,11 @@ function App() {
         spacing={2}
       >
         {products?.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            key={product.id}
+            product={product}
+            addToCart={addToCart}
+          />
         ))}
       </Grid>
       <Footer />

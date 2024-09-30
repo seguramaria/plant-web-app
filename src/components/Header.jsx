@@ -11,9 +11,10 @@ import {
   Typography,
 } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
+import PropTypes from 'prop-types';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-const Header = () => {
+const Header = ({ cart }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleCartClick = (event) => {
@@ -23,7 +24,7 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  console.log(cart);
   return (
     <AppBar
       position='static'
@@ -102,6 +103,10 @@ const Header = () => {
       </Toolbar>
     </AppBar>
   );
+};
+
+Header.propTypes = {
+  cart: PropTypes.array.isRequired,
 };
 
 export default Header;

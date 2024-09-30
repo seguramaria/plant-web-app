@@ -9,10 +9,10 @@ import PropTypes from 'prop-types';
 import ProductDetail from './ProductDetail';
 import { useState } from 'react';
 
-const Product = ({ product }) => {
+const Product = ({ product, addToCart }) => {
   const [open, setOpen] = useState(false);
+  const { image, name, price } = product;
 
-  const { image, price, name } = product;
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -20,10 +20,11 @@ const Product = ({ product }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <>
-      <Card sx={{ maxWidth: 345 }} onClick={handleClickOpen}>
-        <CardActionArea>
+      <Card sx={{ maxWidth: 345 }}>
+        <CardActionArea onClick={handleClickOpen}>
           <CardMedia
             component='img'
             height='350'
@@ -41,7 +42,11 @@ const Product = ({ product }) => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size='small' color='primary'>
+          <Button
+            size='small'
+            color='primary'
+            onClick={() => addToCart(product)}
+          >
             Add to cart
           </Button>
         </CardActions>
@@ -53,6 +58,7 @@ const Product = ({ product }) => {
 
 Product.propTypes = {
   product: PropTypes.object.isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default Product;
