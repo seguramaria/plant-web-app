@@ -4,7 +4,8 @@ import Footer from './components/Footer';
 import ProductCard from './components/ProductCard';
 import Header from './components/Header';
 import Grid from '@mui/material/Grid2';
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, Box, Stack } from '@mui/material';
+import CardMedia from '@mui/material/CardMedia';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -31,6 +32,26 @@ function App() {
     <>
       <CssBaseline />
       <Header cart={cart} />
+      <Stack
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          py: 5,
+          backgroundImage: `url('./img/bg.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <Box
+          sx={{
+            width: '14rem',
+            mb: 2,
+          }}
+        >
+          <CardMedia component='img' src='./img/logo.svg' alt='logo' />
+        </Box>
+      </Stack>
       <Grid
         container
         alignItems='center'

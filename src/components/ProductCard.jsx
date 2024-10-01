@@ -44,7 +44,7 @@ const Product = ({ product, addToCart }) => {
         <CardActions>
           <Button
             size='small'
-            color='primary'
+            color='success'
             onClick={() => addToCart(product)}
           >
             Add to cart

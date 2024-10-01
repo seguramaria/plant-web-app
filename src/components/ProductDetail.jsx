@@ -10,6 +10,7 @@ import { Stack } from '@mui/material';
 
 const Product = ({ handleClose, product, open }) => {
   const { image, price, description, name } = product;
+
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogContent>
@@ -33,15 +34,25 @@ const Product = ({ handleClose, product, open }) => {
               <Typography gutterBottom variant='h5' component='div'>
                 {name}
               </Typography>
-              <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+              <Typography
+                variant='body2'
+                sx={{ color: 'text.secondary', textAlign: 'justify' }}
+              >
                 {description}
               </Typography>
               <Typography variant='h6'>{price}$</Typography>
             </CardContent>
             <CardActions>
-              <Button size='small' color='primary'>
+              <Button size='small' color='success'>
                 Add to cart
               </Button>
+              {/* <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message='Note archived'
+                action={action}
+              /> */}
             </CardActions>
           </Stack>
         </Stack>

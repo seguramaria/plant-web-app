@@ -3,46 +3,37 @@ import {
   AppBar,
   Box,
   Button,
-  IconButton,
-  Menu,
-  MenuItem,
+  Drawer,
   Toolbar,
   Typography,
 } from '@mui/material';
-import CardMedia from '@mui/material/CardMedia';
 import PropTypes from 'prop-types';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCart from './ShoppingCart';
+import YardOutlinedIcon from '@mui/icons-material/YardOutlined';
 
 const Header = ({ cart }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const handleCartClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClickOpenCart = () => {
+    setIsCartOpen(true);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   console.log(cart);
   return (
-    <AppBar
-      position='static'
-      sx={{
-        py: 5,
-        backgroundImage: `url('./img/header.jpg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <Toolbar sx={{ justifyContent: 'space-evenly', alignItems: 'center' }}>
-        <Box
-          sx={{
-            width: '14rem',
-            mb: 2,
-          }}
+    <AppBar position='sticky' color='inherit'>
+      <Toolbar sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
+        <Button
+          variant='text'
+          color='inherit'
+          endIcon={<YardOutlinedIcon />}
+          onClick={() => console.log('click')}
         >
-          <CardMedia component='img' src='./img/logo.svg' alt='logo' />
-        </Box>
+          <Typography component='div' variant='h5'>
+            Happy Plants
+          </Typography>
+        </Button>
+
         <Box
           sx={{
             flexBasis: { xs: '100%', md: '70%' },
@@ -55,7 +46,7 @@ const Header = ({ cart }) => {
             variant='outlined'
             color='inherit'
             startIcon={<ShoppingCartIcon />}
-            onClick={handleCartClick}
+            onClick={handleClickOpenCart}
             sx={{
               '&:hover': {
                 backgroundColor: '#548954',
@@ -63,44 +54,15 @@ const Header = ({ cart }) => {
               },
             }}
           >
-            (0)
+            ({cart.length})
           </Button>
-          <Menu
-            id='shopping-cart-menu'
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
+          <Drawer
+            anchor='right'
+            open={isCartOpen}
+            onClose={() => setIsCartOpen(false)}
           >
-            <MenuItem key='1'>
-              <Box display='flex' justifyContent='space-between' width='100%'>
-                <CardMedia
-                  component='img'
-                  height='50'
-                  image={`./img/image_1.webp`}
-                  alt={'monstera'}
-                />
-
-                <Typography>Monstera</Typography>
-                <Typography>30</Typography>
-                <Box display='flex' alignItems='center'>
-                  <IconButton size='small'>-</IconButton>
-                  <Typography>1</Typography>
-                  <IconButton size='small'>+</IconButton>
-                </Box>
-                <IconButton size='small' color='error'>
-                  X
-                </IconButton>
-              </Box>
-            </MenuItem>
-
-            <MenuItem>
-              <Typography>Total: 30$</Typography>
-            </MenuItem>
-            <MenuItem>
-              <Button variant='text'>Empty cart</Button>
-            </MenuItem>
-          </Menu>
+            <ShoppingCart cart={cart} />
+          </Drawer>
         </Box>
       </Toolbar>
     </AppBar>
