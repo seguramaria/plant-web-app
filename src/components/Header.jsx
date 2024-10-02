@@ -12,7 +12,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCart from './ShoppingCart';
 import YardOutlinedIcon from '@mui/icons-material/YardOutlined';
 
-const Header = ({ cart }) => {
+const Header = ({ addToCart, removeProductFromCart, cart }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const handleClickOpenCart = () => {
@@ -61,7 +61,11 @@ const Header = ({ cart }) => {
             open={isCartOpen}
             onClose={() => setIsCartOpen(false)}
           >
-            <ShoppingCart cart={cart} />
+            <ShoppingCart
+              cart={cart}
+              addToCart={addToCart}
+              removeProductFromCart={removeProductFromCart}
+            />
           </Drawer>
         </Box>
       </Toolbar>
@@ -71,6 +75,8 @@ const Header = ({ cart }) => {
 
 Header.propTypes = {
   cart: PropTypes.array.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  removeProductFromCart: PropTypes.func.isRequired,
 };
 
 export default Header;

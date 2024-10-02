@@ -14,7 +14,14 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-const Product = ({ handleClose, product, open, addToCart, quantity }) => {
+const Product = ({
+  handleClose,
+  removeProductFromCart,
+  product,
+  open,
+  addToCart,
+  quantity,
+}) => {
   const { image, price, description, name } = product;
   const isDesktop = useMediaQuery('(min-width:600px)');
   return (
@@ -55,7 +62,7 @@ const Product = ({ handleClose, product, open, addToCart, quantity }) => {
                     <AddCircleOutlineIcon />
                   </IconButton>
                   <Typography>{quantity}</Typography>
-                  <IconButton>
+                  <IconButton onClick={() => removeProductFromCart(product)}>
                     <RemoveCircleOutlineIcon />
                   </IconButton>
                 </Box>
@@ -82,6 +89,8 @@ Product.propTypes = {
   open: PropTypes.bool.isRequired,
   addToCart: PropTypes.func.isRequired,
   quantity: PropTypes.number.isRequired,
+
+  removeProductFromCart: PropTypes.func.isRequired,
 };
 
 export default Product;

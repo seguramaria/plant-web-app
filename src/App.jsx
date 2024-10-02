@@ -33,16 +33,18 @@ function App() {
 
   const removeProductFromCart = (product) => {
     setCart((prevCart) => {
-      const isProductAdded = prevCart.find((item) => item.id === product.id);
+      const isProductRemoved = prevCart.find((item) => item.id === product.id);
 
-      if (isProductAdded) {
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        );
-      } else {
-        return [...prevCart, { ...product, quantity: 0 }];
+      if (isProductRemoved) {
+        if (isProductRemoved.quantity === 1) {
+          return prevCart.filter((item) => item.id !== product.id);
+        } else {
+          return prevCart.map((item) =>
+            item.id === product.id
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          );
+        }
       }
     });
   };
@@ -55,7 +57,11 @@ function App() {
   return (
     <>
       <CssBaseline />
-      <Header cart={cart} />
+      <Header
+        cart={cart}
+        addToCart={addToCart}
+        removeProductFromCart={removeProductFromCart}
+      />
       <Stack
         sx={{
           display: 'flex',

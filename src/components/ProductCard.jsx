@@ -69,9 +69,10 @@ const Product = ({ product, addToCart, quantity, removeProductFromCart }) => {
       <ProductDetail
         product={product}
         open={open}
+        quantity={quantity}
         handleClose={handleClose}
         addToCart={addToCart}
-        quantity={quantity}
+        removeProductFromCart={removeProductFromCart}
       />
     </>
   );
@@ -79,8 +80,8 @@ const Product = ({ product, addToCart, quantity, removeProductFromCart }) => {
 
 Product.propTypes = {
   product: PropTypes.object.isRequired,
-  addToCart: PropTypes.func.isRequired,
   quantity: PropTypes.number.isRequired,
+  addToCart: PropTypes.func.isRequired,
   removeProductFromCart: PropTypes.func.isRequired,
 };
 

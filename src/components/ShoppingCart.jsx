@@ -3,7 +3,7 @@ import ShoppingCartItem from './ShoppingCartItem';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import { Stack, Typography } from '@mui/material';
 
-const ShoppingCart = ({ cart }) => {
+const ShoppingCart = ({ cart, addToCart, removeProductFromCart }) => {
   return (
     <Stack
       sx={{
@@ -35,7 +35,12 @@ const ShoppingCart = ({ cart }) => {
             Shopping Cart ({cart.length})
           </Typography>
           {cart.map((product) => (
-            <ShoppingCartItem key={product.id} product={product} />
+            <ShoppingCartItem
+              key={product.id}
+              addToCart={addToCart}
+              removeProductFromCart={removeProductFromCart}
+              product={product}
+            />
           ))}
         </Stack>
       )}
@@ -67,6 +72,8 @@ const ShoppingCart = ({ cart }) => {
 
 ShoppingCart.propTypes = {
   cart: PropTypes.array.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  removeProductFromCart: PropTypes.func.isRequired,
 };
 
 export default ShoppingCart;

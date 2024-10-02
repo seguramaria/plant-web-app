@@ -8,7 +8,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import PropTypes from 'prop-types';
 
-const ShoppingCartItem = ({ product }) => {
+const ShoppingCartItem = ({ product, addToCart, removeProductFromCart }) => {
   const { image, name, price, quantity } = product;
   return (
     <Card sx={{ display: 'flex', width: 300, marginBottom: '0.5rem' }}>
@@ -31,12 +31,12 @@ const ShoppingCartItem = ({ product }) => {
             {price}$
           </Typography>
         </CardContent>
-        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-          <IconButton>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <IconButton onClick={() => addToCart(product)}>
             <AddCircleOutlineIcon />
           </IconButton>
           <Typography>{quantity}</Typography>
-          <IconButton>
+          <IconButton onClick={() => removeProductFromCart(product)}>
             <RemoveCircleOutlineIcon />
           </IconButton>
         </Box>
@@ -47,5 +47,7 @@ const ShoppingCartItem = ({ product }) => {
 
 ShoppingCartItem.propTypes = {
   product: PropTypes.object.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  removeProductFromCart: PropTypes.func.isRequired,
 };
 export default ShoppingCartItem;
