@@ -16,41 +16,45 @@ function App() {
   }, []);
 
   const addToCart = (product) => {
-    setCart((prevCart) => {
-      const isProductAdded = prevCart.find((item) => item.id === product.id);
-
-      if (isProductAdded) {
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
-        return [...prevCart, { ...product, quantity: 1 }];
-      }
-    });
+    return setCart([...cart, { ...product, quantity: 1 }]);
   };
 
   const removeProductFromCart = (product) => {
-    setCart((prevCart) => {
-      const isProductRemoved = prevCart.find((item) => item.id === product.id);
+    const updateCart = cart.filter((item) => item.id !== product.id);
+    setCart(updateCart);
+  };
 
-      if (isProductRemoved) {
-        if (isProductRemoved.quantity === 1) {
-          return prevCart.filter((item) => item.id !== product.id);
-        } else {
-          return prevCart.map((item) =>
-            item.id === product.id
-              ? { ...item, quantity: item.quantity - 1 }
-              : item
-          );
-        }
+  const increaseQuantity = (id) => {
+    const updatedCart = cart.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
       }
+      return item;
     });
+    setCart(updatedCart);
+  };
+
+  const decreaseQuantity = (id) => {
+    const updatedCart = cart
+      .map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            quantity: item.quantity - 1,
+          };
+        }
+        return item;
+      })
+      .filter((item) => item.quantity > 0);
+
+    setCart(updatedCart);
   };
 
   const getProductQuantity = (productId) => {
-    const productInCart = cart.find((item) => item.id === productId);
+    const productInCart = cart?.find((item) => item.id === productId);
     return productInCart ? productInCart.quantity : 0;
   };
 
@@ -59,8 +63,9 @@ function App() {
       <CssBaseline />
       <Header
         cart={cart}
-        addToCart={addToCart}
+        increaseQuantity={increaseQuantity}
         removeProductFromCart={removeProductFromCart}
+        decreaseQuantity={decreaseQuantity}
       />
       <Stack
         sx={{
@@ -92,10 +97,11 @@ function App() {
         {products?.map((product) => (
           <ProductCard
             key={product.id}
-            product={product}
             addToCart={addToCart}
-            removeProductFromCart={removeProductFromCart}
+            product={product}
             quantity={getProductQuantity(product.id)}
+            increaseQuantity={increaseQuantity}
+            decreaseQuantity={decreaseQuantity}
           />
         ))}
       </Grid>

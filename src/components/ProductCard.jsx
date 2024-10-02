@@ -13,7 +13,13 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useState } from 'react';
 
-const Product = ({ product, addToCart, quantity, removeProductFromCart }) => {
+const Product = ({
+  addToCart,
+  increaseQuantity,
+  product,
+  quantity,
+  decreaseQuantity,
+}) => {
   const [open, setOpen] = useState(false);
   const { image, name, price } = product;
 
@@ -47,11 +53,17 @@ const Product = ({ product, addToCart, quantity, removeProductFromCart }) => {
         <CardActions>
           {quantity > 0 ? (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <IconButton onClick={() => addToCart(product)}>
+              <IconButton
+                onClick={() => increaseQuantity(product.id)}
+                aria-label='increase quantity'
+              >
                 <AddCircleOutlineIcon />
               </IconButton>
               <Typography>{quantity}</Typography>
-              <IconButton onClick={() => removeProductFromCart(product)}>
+              <IconButton
+                onClick={() => decreaseQuantity(product.id)}
+                aria-label='remove product'
+              >
                 <RemoveCircleOutlineIcon />
               </IconButton>
             </Box>
@@ -59,6 +71,7 @@ const Product = ({ product, addToCart, quantity, removeProductFromCart }) => {
             <Button
               size='small'
               color='success'
+              aria-label='add product'
               onClick={() => addToCart(product)}
             >
               Add to cart
@@ -67,22 +80,24 @@ const Product = ({ product, addToCart, quantity, removeProductFromCart }) => {
         </CardActions>
       </Card>
       <ProductDetail
-        product={product}
-        open={open}
-        quantity={quantity}
-        handleClose={handleClose}
         addToCart={addToCart}
-        removeProductFromCart={removeProductFromCart}
+        handleClose={handleClose}
+        increaseQuantity={increaseQuantity}
+        open={open}
+        product={product}
+        quantity={quantity}
+        decreaseQuantity={decreaseQuantity}
       />
     </>
   );
 };
 
 Product.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+  increaseQuantity: PropTypes.func.isRequired,
   product: PropTypes.object.isRequired,
   quantity: PropTypes.number.isRequired,
-  addToCart: PropTypes.func.isRequired,
-  removeProductFromCart: PropTypes.func.isRequired,
+  decreaseQuantity: PropTypes.func.isRequired,
 };
 
 export default Product;

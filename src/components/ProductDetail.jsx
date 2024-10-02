@@ -15,12 +15,13 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Product = ({
-  handleClose,
-  removeProductFromCart,
-  product,
-  open,
   addToCart,
+  handleClose,
+  open,
+  product,
   quantity,
+  decreaseQuantity,
+  increaseQuantity,
 }) => {
   const { image, price, description, name } = product;
   const isDesktop = useMediaQuery('(min-width:600px)');
@@ -58,11 +59,17 @@ const Product = ({
             <CardActions>
               {quantity > 0 ? (
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <IconButton onClick={() => addToCart(product)}>
+                  <IconButton
+                    onClick={() => increaseQuantity(product.id)}
+                    aria-label='increase quantity'
+                  >
                     <AddCircleOutlineIcon />
                   </IconButton>
                   <Typography>{quantity}</Typography>
-                  <IconButton onClick={() => removeProductFromCart(product)}>
+                  <IconButton
+                    onClick={() => decreaseQuantity(product.id)}
+                    aria-label='remove product'
+                  >
                     <RemoveCircleOutlineIcon />
                   </IconButton>
                 </Box>
@@ -70,6 +77,7 @@ const Product = ({
                 <Button
                   size='small'
                   color='success'
+                  aria-label='add product'
                   onClick={() => addToCart(product)}
                 >
                   Add to cart
@@ -84,13 +92,13 @@ const Product = ({
 };
 
 Product.propTypes = {
-  handleClose: PropTypes.func.isRequired,
-  product: PropTypes.object.isRequired,
-  open: PropTypes.bool.isRequired,
   addToCart: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  increaseQuantity: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  product: PropTypes.object.isRequired,
   quantity: PropTypes.number.isRequired,
-
-  removeProductFromCart: PropTypes.func.isRequired,
+  decreaseQuantity: PropTypes.func.isRequired,
 };
 
 export default Product;

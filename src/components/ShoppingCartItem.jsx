@@ -6,12 +6,33 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from 'prop-types';
 
-const ShoppingCartItem = ({ product, addToCart, removeProductFromCart }) => {
+const ShoppingCartItem = ({
+  increaseQuantity,
+  decreaseQuantity,
+  product,
+  removeProductFromCart,
+}) => {
   const { image, name, price, quantity } = product;
   return (
-    <Card sx={{ display: 'flex', width: 300, marginBottom: '0.5rem' }}>
+    <Card
+      sx={{
+        display: 'flex',
+        width: 300,
+        marginBottom: '0.5rem',
+        position: 'relative',
+      }}
+    >
+      <IconButton
+        size='small'
+        onClick={() => removeProductFromCart(product)}
+        aria-label='remove product'
+        sx={{ position: 'absolute', right: '2px' }}
+      >
+        <DeleteIcon fontSize='small' />
+      </IconButton>
       <CardMedia
         component='img'
         sx={{ width: 151 }}
@@ -32,11 +53,17 @@ const ShoppingCartItem = ({ product, addToCart, removeProductFromCart }) => {
           </Typography>
         </CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <IconButton onClick={() => addToCart(product)}>
+          <IconButton
+            onClick={() => increaseQuantity(product.id)}
+            aria-label='increase quantity'
+          >
             <AddCircleOutlineIcon />
           </IconButton>
           <Typography>{quantity}</Typography>
-          <IconButton onClick={() => removeProductFromCart(product)}>
+          <IconButton
+            onClick={() => decreaseQuantity(product.id)}
+            aria-label='decrease quantity'
+          >
             <RemoveCircleOutlineIcon />
           </IconButton>
         </Box>
@@ -46,8 +73,9 @@ const ShoppingCartItem = ({ product, addToCart, removeProductFromCart }) => {
 };
 
 ShoppingCartItem.propTypes = {
+  increaseQuantity: PropTypes.func.isRequired,
+  decreaseQuantity: PropTypes.func.isRequired,
   product: PropTypes.object.isRequired,
-  addToCart: PropTypes.func.isRequired,
   removeProductFromCart: PropTypes.func.isRequired,
 };
 export default ShoppingCartItem;

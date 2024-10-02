@@ -2,8 +2,24 @@ import PropTypes from 'prop-types';
 import ShoppingCartItem from './ShoppingCartItem';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import { Stack, Typography } from '@mui/material';
+import { useMemo } from 'react';
 
-const ShoppingCart = ({ cart, addToCart, removeProductFromCart }) => {
+const ShoppingCart = ({
+  cart,
+  decreaseQuantity,
+  increaseQuantity,
+  removeProductFromCart,
+}) => {
+  const isEmpty = useMemo(() => cart.length === 0, [cart]);
+  const cartTotal = useMemo(
+    () =>
+      cart.reduce(
+        (total, product) => total + product.quantity * product.price,
+        0
+      ),
+    [cart]
+  );
+
   return (
     <Stack
       sx={{
@@ -13,7 +29,7 @@ const ShoppingCart = ({ cart, addToCart, removeProductFromCart }) => {
         justifyContent: 'space-between',
       }}
     >
-      {cart.length === 0 ? (
+      {isEmpty ? (
         <Stack
           sx={{
             alignItems: 'flex-start',
@@ -21,7 +37,7 @@ const ShoppingCart = ({ cart, addToCart, removeProductFromCart }) => {
           }}
         >
           <Typography variant='h6' paddingTop='0.75rem'>
-            YOUR BASKET IS EMPTY
+            YOUR CART IS EMPTY
           </Typography>
         </Stack>
       ) : (
@@ -37,9 +53,10 @@ const ShoppingCart = ({ cart, addToCart, removeProductFromCart }) => {
           {cart.map((product) => (
             <ShoppingCartItem
               key={product.id}
-              addToCart={addToCart}
-              removeProductFromCart={removeProductFromCart}
+              decreaseQuantity={decreaseQuantity}
+              increaseQuantity={increaseQuantity}
               product={product}
+              removeProductFromCart={removeProductFromCart}
             />
           ))}
         </Stack>
@@ -53,7 +70,6 @@ const ShoppingCart = ({ cart, addToCart, removeProductFromCart }) => {
           marginTop: '1.5rem',
         }}
       >
-        <ShoppingBagOutlinedIcon fontSize='large' />
         <Stack
           sx={{
             flexDirection: 'row',
@@ -63,8 +79,12 @@ const ShoppingCart = ({ cart, addToCart, removeProductFromCart }) => {
           }}
         >
           <Typography>Total:</Typography>
-          <Typography>0$</Typography>
+          <Typography>{cartTotal}$</Typography>
         </Stack>
+        <ShoppingBagOutlinedIcon
+          fontSize='medium'
+          sx={{ marginBottom: '0.25rem' }}
+        />
       </Stack>
     </Stack>
   );
@@ -72,7 +92,8 @@ const ShoppingCart = ({ cart, addToCart, removeProductFromCart }) => {
 
 ShoppingCart.propTypes = {
   cart: PropTypes.array.isRequired,
-  addToCart: PropTypes.func.isRequired,
+  decreaseQuantity: PropTypes.func.isRequired,
+  increaseQuantity: PropTypes.func.isRequired,
   removeProductFromCart: PropTypes.func.isRequired,
 };
 

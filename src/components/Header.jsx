@@ -12,7 +12,12 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCart from './ShoppingCart';
 import YardOutlinedIcon from '@mui/icons-material/YardOutlined';
 
-const Header = ({ addToCart, removeProductFromCart, cart }) => {
+const Header = ({
+  cart,
+  decreaseQuantity,
+  increaseQuantity,
+  removeProductFromCart,
+}) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const handleClickOpenCart = () => {
@@ -49,12 +54,12 @@ const Header = ({ addToCart, removeProductFromCart, cart }) => {
             sx={{
               '&:hover': {
                 color: 'white',
-                backgroundColor: '#548954',
-                borderColor: '#548954',
+                backgroundColor: '#373330',
+                borderColor: '#373330',
               },
             }}
           >
-            ({cart.length})
+            ({cart?.length})
           </Button>
           <Drawer
             anchor='right'
@@ -63,7 +68,8 @@ const Header = ({ addToCart, removeProductFromCart, cart }) => {
           >
             <ShoppingCart
               cart={cart}
-              addToCart={addToCart}
+              decreaseQuantity={decreaseQuantity}
+              increaseQuantity={increaseQuantity}
               removeProductFromCart={removeProductFromCart}
             />
           </Drawer>
@@ -75,7 +81,8 @@ const Header = ({ addToCart, removeProductFromCart, cart }) => {
 
 Header.propTypes = {
   cart: PropTypes.array.isRequired,
-  addToCart: PropTypes.func.isRequired,
+  decreaseQuantity: PropTypes.func.isRequired,
+  increaseQuantity: PropTypes.func.isRequired,
   removeProductFromCart: PropTypes.func.isRequired,
 };
 
