@@ -19,7 +19,6 @@ const Header = ({ cart }) => {
     setIsCartOpen(true);
   };
 
-  console.log(cart);
   return (
     <AppBar position='sticky' color='inherit'>
       <Toolbar sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
@@ -49,6 +48,7 @@ const Header = ({ cart }) => {
             onClick={handleClickOpenCart}
             sx={{
               '&:hover': {
+                color: 'white',
                 backgroundColor: '#548954',
                 borderColor: '#548954',
               },

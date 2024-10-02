@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 const ShoppingCartItem = ({ product }) => {
   const { image, name, price, quantity } = product;
   return (
-    <Card sx={{ display: 'flex' }}>
+    <Card sx={{ display: 'flex', width: 300, marginBottom: '0.5rem' }}>
       <CardMedia
         component='img'
         sx={{ width: 151 }}

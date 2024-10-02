@@ -1,16 +1,67 @@
 import PropTypes from 'prop-types';
 import ShoppingCartItem from './ShoppingCartItem';
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+import { Stack, Typography } from '@mui/material';
 
 const ShoppingCart = ({ cart }) => {
   return (
-    <>
-      <h2>Your ShoppingCart</h2>
-      {cart.length === 0 ? <p>No products in cart.</p> : null}
-      {cart.map((product) => (
-        <ShoppingCartItem key={product.id} product={product} />
-      ))}
-      <h2>Total: 0$</h2>
-    </>
+    <Stack
+      sx={{
+        height: '100%',
+        padding: '1rem 1.5rem',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+      }}
+    >
+      {cart.length === 0 ? (
+        <Stack
+          sx={{
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+          }}
+        >
+          <Typography variant='h6' paddingTop='0.75rem'>
+            YOUR BASKET IS EMPTY
+          </Typography>
+        </Stack>
+      ) : (
+        <Stack
+          sx={{
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+          }}
+        >
+          <Typography variant='h6' paddingBottom='1rem'>
+            Shopping Cart ({cart.length})
+          </Typography>
+          {cart.map((product) => (
+            <ShoppingCartItem key={product.id} product={product} />
+          ))}
+        </Stack>
+      )}
+      <Stack
+        sx={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+          marginTop: '1.5rem',
+        }}
+      >
+        <ShoppingBagOutlinedIcon fontSize='large' />
+        <Stack
+          sx={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}
+        >
+          <Typography>Total:</Typography>
+          <Typography>0$</Typography>
+        </Stack>
+      </Stack>
+    </Stack>
   );
 };
 

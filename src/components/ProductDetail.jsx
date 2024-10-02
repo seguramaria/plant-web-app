@@ -1,4 +1,5 @@
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,10 +8,15 @@ import DialogContent from '@mui/material/DialogContent';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
-const Product = ({ handleClose, product, open }) => {
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+const Product = ({ handleClose, product, open, addToCart, quantity }) => {
   const { image, price, description, name } = product;
-
+  const isDesktop = useMediaQuery('(min-width:600px)');
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogContent>
@@ -18,7 +24,7 @@ const Product = ({ handleClose, product, open }) => {
           sx={{
             maxWidth: 600,
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: isDesktop ? 'row' : 'column',
             alignItems: 'flex-start',
             justifyContent: 'center',
           }}
@@ -43,16 +49,25 @@ const Product = ({ handleClose, product, open }) => {
               <Typography variant='h6'>{price}$</Typography>
             </CardContent>
             <CardActions>
-              <Button size='small' color='success'>
-                Add to cart
-              </Button>
-              {/* <Snackbar
-                open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-                message='Note archived'
-                action={action}
-              /> */}
+              {quantity > 0 ? (
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <IconButton onClick={() => addToCart(product)}>
+                    <AddCircleOutlineIcon />
+                  </IconButton>
+                  <Typography>{quantity}</Typography>
+                  <IconButton>
+                    <RemoveCircleOutlineIcon />
+                  </IconButton>
+                </Box>
+              ) : (
+                <Button
+                  size='small'
+                  color='success'
+                  onClick={() => addToCart(product)}
+                >
+                  Add to cart
+                </Button>
+              )}
             </CardActions>
           </Stack>
         </Stack>
@@ -65,6 +80,8 @@ Product.propTypes = {
   handleClose: PropTypes.func.isRequired,
   product: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  quantity: PropTypes.number.isRequired,
 };
 
 export default Product;

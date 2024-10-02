@@ -16,16 +16,40 @@ function App() {
   }, []);
 
   const addToCart = (product) => {
-    const isProductAdded = cart.findIndex((item) => item.id === product.id);
+    setCart((prevCart) => {
+      const isProductAdded = prevCart.find((item) => item.id === product.id);
 
-    if (isProductAdded >= 0) {
-      const updatedCart = [...cart];
-      updatedCart[isProductAdded].quantity++;
-      setCart(updatedCart);
-    } else {
-      product.quantity = 1;
-      setCart((prevCart) => [...prevCart, product]);
-    }
+      if (isProductAdded) {
+        return prevCart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        return [...prevCart, { ...product, quantity: 1 }];
+      }
+    });
+  };
+
+  const removeProductFromCart = (product) => {
+    setCart((prevCart) => {
+      const isProductAdded = prevCart.find((item) => item.id === product.id);
+
+      if (isProductAdded) {
+        return prevCart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        );
+      } else {
+        return [...prevCart, { ...product, quantity: 0 }];
+      }
+    });
+  };
+
+  const getProductQuantity = (productId) => {
+    const productInCart = cart.find((item) => item.id === productId);
+    return productInCart ? productInCart.quantity : 0;
   };
 
   return (
@@ -64,6 +88,8 @@ function App() {
             key={product.id}
             product={product}
             addToCart={addToCart}
+            removeProductFromCart={removeProductFromCart}
+            quantity={getProductQuantity(product.id)}
           />
         ))}
       </Grid>
