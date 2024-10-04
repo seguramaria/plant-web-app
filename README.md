@@ -1,16 +1,17 @@
-# Plant Store Web Application
-
-![Plants](public/img/plant_1.webp)
+# Plant Store Web Application 🌼🍃
 
 ## Description
 
 This is a plant web application built with **React** and **Vite**. It allows users to browse different plants, add products to a cart, and manage its contents. The website content can be easily customized.
 
+## Live Demo
+
+Check out the live demo of the project 🌿[here](https://shop-happy-plants.netlify.app/).
+
 ## Features
 
 - **Add products to the cart**: Select a plant and add it to your cart.
 - **Remove products from the cart**: Remove products from the cart as needed.
-- **Content customization**: Easily change product information and images.
 
 ## Requirements
 
@@ -20,11 +21,11 @@ Make sure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.co
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone <REPOSITORY_URL>
+   git clone git@github.com:seguramaria/plant-web-app.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd project-name
+   cd plant-web-app
    ```
 3. Install the dependencies:
    ```bash
