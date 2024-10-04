@@ -5,15 +5,25 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { Product } from '../types';
 
-const Product = ({
+type Props = {
+  addToCart: (product: Product) => void;
+  decreaseQuantity: (id: number) => void;
+  increaseQuantity: (id: number) => void;
+  product: Product;
+  quantity: number;
+  handleClose: () => void;
+  open: boolean;
+};
+
+const ProductDetail = ({
   addToCart,
   handleClose,
   open,
@@ -21,7 +31,7 @@ const Product = ({
   quantity,
   decreaseQuantity,
   increaseQuantity,
-}) => {
+}: Props) => {
   const { image, price, description, name } = product;
   const isDesktop = useMediaQuery('(min-width:600px)');
   return (
@@ -90,14 +100,4 @@ const Product = ({
   );
 };
 
-Product.propTypes = {
-  addToCart: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  increaseQuantity: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  product: PropTypes.object.isRequired,
-  quantity: PropTypes.number.isRequired,
-  decreaseQuantity: PropTypes.func.isRequired,
-};
-
-export default Product;
+export default ProductDetail;

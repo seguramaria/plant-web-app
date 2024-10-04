@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { data } from './data/data.js'; // Asegúrate de que 'data' se exporta correctamente
-import App from './App.jsx';
+import { data } from './data/data.ts';
+import App from './App.tsx';
 
 document.title = data.name;
 

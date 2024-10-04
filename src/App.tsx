@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Grid from '@mui/material/Grid2';
 import { CssBaseline, Box, Stack } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
+import { Product } from './types';
 
 function App() {
   const initialCart = () => {
@@ -20,21 +21,21 @@ function App() {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (product) => {
+  const addToCart = (product: Product) => {
     setCart([...cart, { ...product, quantity: 1 }]);
   };
 
-  const removeProductFromCart = (product) => {
-    const updateCart = cart.filter((item) => item.id !== product.id);
+  const removeProductFromCart = (id: number) => {
+    const updateCart = cart.filter((item: Product) => item.id !== id);
     setCart(updateCart);
   };
 
-  const increaseQuantity = (id) => {
-    const updatedCart = cart.map((item) => {
-      if (item.id === id) {
+  const increaseQuantity = (id: number) => {
+    const updatedCart = cart.map((item: Product) => {
+      if (item.id === id && item?.quantity) {
         return {
           ...item,
-          quantity: item.quantity + 1,
+          quantity: item?.quantity + 1,
         };
       }
       return item;
@@ -42,26 +43,26 @@ function App() {
     setCart(updatedCart);
   };
 
-  const decreaseQuantity = (id) => {
+  const decreaseQuantity = (id: number) => {
     const updatedCart = cart
-      .map((item) => {
-        if (item.id === id) {
+      .map((item: Product) => {
+        if (item.id === id && item?.quantity) {
           return {
             ...item,
-            quantity: item.quantity - 1,
+            quantity: item?.quantity - 1,
           };
         }
         return item;
       })
-      .filter((item) => item.quantity > 0);
+      .filter((item: Product) => item?.quantity && item.quantity > 0);
 
     setCart(updatedCart);
   };
 
   const clearCart = () => setCart([]);
 
-  const getProductQuantity = (productId) => {
-    const productInCart = cart?.find((item) => item.id === productId);
+  const getProductQuantity = (productId: number) => {
+    const productInCart = cart?.find((item: Product) => item.id === productId);
     return productInCart ? productInCart.quantity : 0;
   };
 
@@ -104,7 +105,7 @@ function App() {
         p={5}
         spacing={2}
       >
-        {products?.map((product) => (
+        {products?.map((product: Product) => (
           <ProductCard
             key={product.id}
             addToCart={addToCart}

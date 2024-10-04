@@ -7,14 +7,21 @@ import Typography from '@mui/material/Typography';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
-import PropTypes from 'prop-types';
+import { Product } from '../types';
+
+type Props = {
+  product: Product;
+  decreaseQuantity: (id: number) => void;
+  increaseQuantity: (id: number) => void;
+  removeProductFromCart: (id: number) => void;
+};
 
 const ShoppingCartItem = ({
   decreaseQuantity,
   increaseQuantity,
   product,
   removeProductFromCart,
-}) => {
+}: Props) => {
   const { image, name, price, quantity } = product;
 
   return (
@@ -29,7 +36,7 @@ const ShoppingCartItem = ({
     >
       <IconButton
         size='small'
-        onClick={() => removeProductFromCart(product)}
+        onClick={() => removeProductFromCart(product.id)}
         aria-label='remove product'
         sx={{ position: 'absolute', right: '2px' }}
       >
@@ -80,10 +87,4 @@ const ShoppingCartItem = ({
   );
 };
 
-ShoppingCartItem.propTypes = {
-  decreaseQuantity: PropTypes.func.isRequired,
-  increaseQuantity: PropTypes.func.isRequired,
-  product: PropTypes.object.isRequired,
-  removeProductFromCart: PropTypes.func.isRequired,
-};
 export default ShoppingCartItem;
