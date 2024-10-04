@@ -10,6 +10,7 @@ import {
 import PropTypes from 'prop-types';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCart from './ShoppingCart';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { Icon } from '@mui/material';
 
 const Header = ({
@@ -22,6 +23,7 @@ const Header = ({
   removeProductFromCart,
 }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const isDesktop = useMediaQuery('(min-width:600px)');
 
   const handleClickOpenCart = () => {
     setIsCartOpen(true);
@@ -30,7 +32,12 @@ const Header = ({
   return (
     <AppBar position='sticky' color='inherit'>
       <Toolbar sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <Button variant='text' color='inherit' href='/'>
+        <Button
+          variant='text'
+          color='inherit'
+          href='/'
+          sx={{ width: '100%', justifyContent: 'flex-start' }}
+        >
           {icon && (
             <Icon
               className='material-icons-outlined'
@@ -40,7 +47,7 @@ const Header = ({
               {icon}
             </Icon>
           )}
-          <Typography component='div' variant='h5'>
+          <Typography component='div' variant={isDesktop ? 'h5' : 'body1'}>
             {name}
           </Typography>
         </Button>

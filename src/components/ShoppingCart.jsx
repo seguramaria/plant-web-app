@@ -31,7 +31,8 @@ const ShoppingCart = ({
       sx={{
         width: isDesktop ? 400 : '100vw',
         height: '100%',
-        padding: '1.5rem 1.5rem',
+        padding: '1.5rem',
+        paddingBottom: '0.25rem',
         alignItems: 'flex-start',
         justifyContent: 'space-between',
         position: 'relative',
