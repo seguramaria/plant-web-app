@@ -6,20 +6,28 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
-import PropTypes from 'prop-types';
 import ProductDetail from './ProductDetail';
 import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { Product } from '../types';
 import { useState } from 'react';
 
-const Product = ({
+type Props = {
+  addToCart: (product: Product) => void;
+  decreaseQuantity: (id: number) => void;
+  increaseQuantity: (id: number) => void;
+  product: Product;
+  quantity: number;
+};
+
+const ProductCard = ({
   addToCart,
   increaseQuantity,
   product,
   quantity,
   decreaseQuantity,
-}) => {
+}: Props) => {
   const [open, setOpen] = useState(false);
   const { image, name, price } = product;
 
@@ -92,12 +100,4 @@ const Product = ({
   );
 };
 
-Product.propTypes = {
-  addToCart: PropTypes.func.isRequired,
-  increaseQuantity: PropTypes.func.isRequired,
-  product: PropTypes.object.isRequired,
-  quantity: PropTypes.number.isRequired,
-  decreaseQuantity: PropTypes.func.isRequired,
-};
-
-export default Product;
+export default ProductCard;

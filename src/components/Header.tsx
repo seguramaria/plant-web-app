@@ -7,11 +7,21 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import PropTypes from 'prop-types';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCart from './ShoppingCart';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Icon } from '@mui/material';
+import { Product } from '../types';
+
+type Props = {
+  cart: Product[];
+  clearCart: () => void;
+  decreaseQuantity: (id: number) => void;
+  icon: string;
+  increaseQuantity: (id: number) => void;
+  name: string;
+  removeProductFromCart: (id: number) => void;
+};
 
 const Header = ({
   cart,
@@ -21,7 +31,7 @@ const Header = ({
   increaseQuantity,
   name,
   removeProductFromCart,
-}) => {
+}: Props) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const isDesktop = useMediaQuery('(min-width:600px)');
 
@@ -93,16 +103,6 @@ const Header = ({
       </Toolbar>
     </AppBar>
   );
-};
-
-Header.propTypes = {
-  cart: PropTypes.array.isRequired,
-  clearCart: PropTypes.func.isRequired,
-  decreaseQuantity: PropTypes.func.isRequired,
-  icon: PropTypes.string,
-  increaseQuantity: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  removeProductFromCart: PropTypes.func.isRequired,
 };
 
 export default Header;

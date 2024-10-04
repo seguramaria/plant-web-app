@@ -1,9 +1,13 @@
 import Box from '@mui/material/Box';
-import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { Icon } from '@mui/material';
 
-const Footer = ({ icon, name }) => {
+type Props = {
+  icon: string;
+  name: string;
+};
+
+const Footer = ({ icon, name }: Props) => {
   return (
     <Box
       component='footer'
@@ -34,11 +38,6 @@ const Footer = ({ icon, name }) => {
       )}
     </Box>
   );
-};
-
-Footer.propTypes = {
-  icon: PropTypes.string,
-  name: PropTypes.string.isRequired,
 };
 
 export default Footer;

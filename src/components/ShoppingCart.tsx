@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartItem from './ShoppingCartItem';
@@ -6,6 +5,16 @@ import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import { Button, Stack, Typography } from '@mui/material';
 import { useMemo } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { Product } from '../types';
+
+type Props = {
+  cart: Product[];
+  clearCart: () => void;
+  close: () => void;
+  decreaseQuantity: (id: number) => void;
+  increaseQuantity: (id: number) => void;
+  removeProductFromCart: (id: number) => void;
+};
 
 const ShoppingCart = ({
   cart,
@@ -14,12 +23,12 @@ const ShoppingCart = ({
   decreaseQuantity,
   increaseQuantity,
   removeProductFromCart,
-}) => {
+}: Props) => {
   const isEmpty = useMemo(() => cart.length === 0, [cart]);
   const cartTotal = useMemo(
     () =>
       cart.reduce(
-        (total, product) => total + product.quantity * product.price,
+        (total, product) => total + (product.quantity || 0) * product.price,
         0
       ),
     [cart]
@@ -40,8 +49,7 @@ const ShoppingCart = ({
     >
       {!isDesktop && (
         <IconButton
-          variant='text'
-          color='text.secondary'
+          color='inherit'
           onClick={() => close()}
           sx={{
             top: '0.25rem',
@@ -49,7 +57,7 @@ const ShoppingCart = ({
             position: 'absolute',
           }}
         >
-          <CloseIcon size='small' />
+          <CloseIcon />
         </IconButton>
       )}
       {isEmpty ? (
@@ -130,15 +138,6 @@ const ShoppingCart = ({
       </Stack>
     </Stack>
   );
-};
-
-ShoppingCart.propTypes = {
-  cart: PropTypes.array.isRequired,
-  clearCart: PropTypes.func.isRequired,
-  close: PropTypes.func.isRequired,
-  decreaseQuantity: PropTypes.func.isRequired,
-  increaseQuantity: PropTypes.func.isRequired,
-  removeProductFromCart: PropTypes.func.isRequired,
 };
 
 export default ShoppingCart;
