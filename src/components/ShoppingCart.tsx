@@ -36,68 +36,73 @@ const ShoppingCart = ({
   const isDesktop = useMediaQuery('(min-width:600px)');
 
   return (
-    <Stack
-      sx={{
-        width: isDesktop ? 400 : '100vw',
-        height: '100%',
-        padding: '1.5rem',
-        paddingBottom: '0.25rem',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        position: 'relative',
-      }}
-    >
-      {!isDesktop && (
-        <IconButton
-          color='inherit'
-          onClick={() => close()}
-          sx={{
-            top: '0.25rem',
-            right: '0.5rem',
-            position: 'absolute',
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      )}
-      {isEmpty ? (
-        <Stack
-          sx={{
-            alignItems: 'flex-start',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography variant='h6' paddingTop='0.75rem'>
-            YOUR CART IS EMPTY
-          </Typography>
-        </Stack>
-      ) : (
-        <Stack
-          sx={{
-            alignItems: 'flex-start',
-            justifyContent: 'center',
-            width: '100%',
-          }}
-        >
-          <Typography variant='h6' paddingBottom='1rem'>
-            Shopping Cart ({cart.length})
-          </Typography>
-          {cart.map((product) => (
-            <ShoppingCartItem
-              key={product.id}
-              decreaseQuantity={decreaseQuantity}
-              increaseQuantity={increaseQuantity}
-              product={product}
-              removeProductFromCart={removeProductFromCart}
-            />
-          ))}
-        </Stack>
-      )}
+    <>
       <Stack
         sx={{
-          width: '100%',
-          marginTop: '1.5rem',
-          paddingBottom: '1rem',
+          width: isDesktop ? 400 : '100vw',
+          height: '100%',
+          padding: '1.5rem',
+          paddingBottom: '0.25rem',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
+          position: 'relative',
+        }}
+      >
+        {!isDesktop && (
+          <IconButton
+            color='inherit'
+            onClick={() => close()}
+            sx={{
+              top: '0.25rem',
+              right: '0.5rem',
+              position: 'absolute',
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        )}
+        {isEmpty ? (
+          <Stack
+            sx={{
+              alignItems: 'flex-start',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography variant='h6' paddingTop='0.75rem'>
+              YOUR CART IS EMPTY
+            </Typography>
+          </Stack>
+        ) : (
+          <Stack
+            sx={{
+              alignItems: 'flex-start',
+              justifyContent: 'center',
+              width: '100%',
+              paddingBottom: '110px',
+            }}
+          >
+            <Typography variant='h6' paddingBottom='1rem'>
+              Shopping Cart ({cart.length})
+            </Typography>
+            {cart.map((product) => (
+              <ShoppingCartItem
+                key={product.id}
+                decreaseQuantity={decreaseQuantity}
+                increaseQuantity={increaseQuantity}
+                product={product}
+                removeProductFromCart={removeProductFromCart}
+              />
+            ))}
+          </Stack>
+        )}
+      </Stack>
+      <Stack
+        sx={{
+          width: isDesktop ? 400 : '100vw',
+          padding: '1rem',
+          position: 'fixed',
+          backgroundColor: 'white',
+          bottom: 0,
         }}
       >
         <Stack
@@ -106,7 +111,6 @@ const ShoppingCart = ({
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
-            marginTop: '1.5rem',
           }}
         >
           <Stack
@@ -136,7 +140,7 @@ const ShoppingCart = ({
           </Button>
         )}
       </Stack>
-    </Stack>
+    </>
   );
 };
 
