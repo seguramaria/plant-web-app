@@ -50,7 +50,7 @@ const Product = ({
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
+        <CardActions sx={{ height: '3.5rem' }}>
           {quantity > 0 ? (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <IconButton

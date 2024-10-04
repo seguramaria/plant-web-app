@@ -76,6 +76,7 @@ const Header = ({
             <ShoppingCart
               cart={cart}
               clearCart={clearCart}
+              close={() => setIsCartOpen(false)}
               decreaseQuantity={decreaseQuantity}
               increaseQuantity={increaseQuantity}
               removeProductFromCart={removeProductFromCart}

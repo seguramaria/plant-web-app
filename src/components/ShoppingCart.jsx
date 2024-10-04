@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 import ShoppingCartItem from './ShoppingCartItem';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import { Button, Stack, Typography } from '@mui/material';
@@ -8,6 +10,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 const ShoppingCart = ({
   cart,
   clearCart,
+  close,
   decreaseQuantity,
   increaseQuantity,
   removeProductFromCart,
@@ -28,11 +31,26 @@ const ShoppingCart = ({
       sx={{
         width: isDesktop ? 400 : '100vw',
         height: '100%',
-        padding: '1rem 1.5rem',
+        padding: '1.5rem 1.5rem',
         alignItems: 'flex-start',
         justifyContent: 'space-between',
+        position: 'relative',
       }}
     >
+      {!isDesktop && (
+        <IconButton
+          variant='text'
+          color='text.secondary'
+          onClick={() => close()}
+          sx={{
+            top: '0.25rem',
+            right: '0.5rem',
+            position: 'absolute',
+          }}
+        >
+          <CloseIcon size='small' />
+        </IconButton>
+      )}
       {isEmpty ? (
         <Stack
           sx={{
@@ -116,6 +134,7 @@ const ShoppingCart = ({
 ShoppingCart.propTypes = {
   cart: PropTypes.array.isRequired,
   clearCart: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
   decreaseQuantity: PropTypes.func.isRequired,
   increaseQuantity: PropTypes.func.isRequired,
   removeProductFromCart: PropTypes.func.isRequired,
