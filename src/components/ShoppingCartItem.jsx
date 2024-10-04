@@ -31,7 +31,7 @@ const ShoppingCartItem = ({
         aria-label='remove product'
         sx={{ position: 'absolute', right: '2px' }}
       >
-        <DeleteIcon fontSize='small' />
+        <DeleteIcon sx={{ fontSize: '1rem' }} />
       </IconButton>
       <CardMedia
         component='img'
@@ -41,7 +41,11 @@ const ShoppingCartItem = ({
       />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto' }}>
-          <Typography component='div' variant='h5'>
+          <Typography
+            component='div'
+            variant='h5'
+            sx={{ marginTop: '0.85rem' }}
+          >
             {name}
           </Typography>
           <Typography

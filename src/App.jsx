@@ -53,6 +53,8 @@ function App() {
     setCart(updatedCart);
   };
 
+  const clearCart = () => setCart([]);
+
   const getProductQuantity = (productId) => {
     const productInCart = cart?.find((item) => item.id === productId);
     return productInCart ? productInCart.quantity : 0;
@@ -63,6 +65,7 @@ function App() {
       <CssBaseline />
       <Header
         cart={cart}
+        clearCart={clearCart}
         increaseQuantity={increaseQuantity}
         removeProductFromCart={removeProductFromCart}
         decreaseQuantity={decreaseQuantity}

@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import ShoppingCartItem from './ShoppingCartItem';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import { Stack, Typography } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { useMemo } from 'react';
 
 const ShoppingCart = ({
   cart,
+  clearCart,
   decreaseQuantity,
   increaseQuantity,
   removeProductFromCart,
@@ -63,28 +64,46 @@ const ShoppingCart = ({
       )}
       <Stack
         sx={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
           width: '100%',
           marginTop: '1.5rem',
+          paddingBottom: '1rem',
         }}
       >
         <Stack
           sx={{
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             width: '100%',
+            marginTop: '1.5rem',
           }}
         >
-          <Typography>Total:</Typography>
-          <Typography>{cartTotal}$</Typography>
+          <Stack
+            sx={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: '100%',
+            }}
+          >
+            <Typography>Total:</Typography>
+            <Typography>{cartTotal}$</Typography>
+          </Stack>
+          <ShoppingBagOutlinedIcon
+            fontSize='medium'
+            sx={{ margin: '0 0 0.3rem 0.5rem' }}
+          />
         </Stack>
-        <ShoppingBagOutlinedIcon
-          fontSize='medium'
-          sx={{ marginBottom: '0.25rem' }}
-        />
+        {!isEmpty && (
+          <Button
+            variant='outlined'
+            color='inherit'
+            onClick={() => clearCart()}
+            sx={{ width: '100%', marginTop: '0.75rem' }}
+          >
+            Clear Cart
+          </Button>
+        )}
       </Stack>
     </Stack>
   );
@@ -92,6 +111,7 @@ const ShoppingCart = ({
 
 ShoppingCart.propTypes = {
   cart: PropTypes.array.isRequired,
+  clearCart: PropTypes.func.isRequired,
   decreaseQuantity: PropTypes.func.isRequired,
   increaseQuantity: PropTypes.func.isRequired,
   removeProductFromCart: PropTypes.func.isRequired,

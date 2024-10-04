@@ -14,6 +14,7 @@ import YardOutlinedIcon from '@mui/icons-material/YardOutlined';
 
 const Header = ({
   cart,
+  clearCart,
   decreaseQuantity,
   increaseQuantity,
   removeProductFromCart,
@@ -68,6 +69,7 @@ const Header = ({
           >
             <ShoppingCart
               cart={cart}
+              clearCart={clearCart}
               decreaseQuantity={decreaseQuantity}
               increaseQuantity={increaseQuantity}
               removeProductFromCart={removeProductFromCart}
@@ -81,6 +83,7 @@ const Header = ({
 
 Header.propTypes = {
   cart: PropTypes.array.isRequired,
+  clearCart: PropTypes.func.isRequired,
   decreaseQuantity: PropTypes.func.isRequired,
   increaseQuantity: PropTypes.func.isRequired,
   removeProductFromCart: PropTypes.func.isRequired,
