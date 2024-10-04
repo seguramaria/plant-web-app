@@ -8,15 +8,24 @@ import { CssBaseline, Box, Stack } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 
 function App() {
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+  const initialCart = () => {
+    const localStorageCart = localStorage.getItem('cart');
+    return localStorageCart ? JSON.parse(localStorageCart) : [];
+  };
+
+  const [products, setProducts] = useState(data);
+  const [cart, setCart] = useState(initialCart);
 
   useEffect(() => {
     setProducts(data);
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
   const addToCart = (product) => {
-    return setCart([...cart, { ...product, quantity: 1 }]);
+    setCart([...cart, { ...product, quantity: 1 }]);
   };
 
   const removeProductFromCart = (product) => {
