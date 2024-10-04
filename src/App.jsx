@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import data from './data/data';
+import { data } from './data/data';
 import Footer from './components/Footer';
 import ProductCard from './components/ProductCard';
 import Header from './components/Header';
@@ -13,12 +13,8 @@ function App() {
     return localStorageCart ? JSON.parse(localStorageCart) : [];
   };
 
-  const [products, setProducts] = useState(data);
+  const products = data.products;
   const [cart, setCart] = useState(initialCart);
-
-  useEffect(() => {
-    setProducts(data);
-  }, []);
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -75,9 +71,11 @@ function App() {
       <Header
         cart={cart}
         clearCart={clearCart}
-        increaseQuantity={increaseQuantity}
-        removeProductFromCart={removeProductFromCart}
         decreaseQuantity={decreaseQuantity}
+        icon={data.icon}
+        increaseQuantity={increaseQuantity}
+        name={data.name}
+        removeProductFromCart={removeProductFromCart}
       />
       <Stack
         sx={{
@@ -117,7 +115,7 @@ function App() {
           />
         ))}
       </Grid>
-      <Footer />
+      <Footer icon={data.icon} name={data.name} />
     </>
   );
 }

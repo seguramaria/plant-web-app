@@ -11,7 +11,6 @@ import { Stack } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Product = ({

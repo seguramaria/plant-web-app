@@ -10,19 +10,21 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from 'prop-types';
 
 const ShoppingCartItem = ({
-  increaseQuantity,
   decreaseQuantity,
+  increaseQuantity,
   product,
   removeProductFromCart,
 }) => {
   const { image, name, price, quantity } = product;
+
   return (
     <Card
       sx={{
         display: 'flex',
-        width: 300,
+        width: '100%',
         marginBottom: '0.5rem',
         position: 'relative',
+        padding: '0.5rem',
       }}
     >
       <IconButton
@@ -39,20 +41,22 @@ const ShoppingCartItem = ({
         image={`./img/${image}.webp`}
         alt={`${name} image`}
       />
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ flex: '1 0 auto' }}>
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
+      >
+        <CardContent>
           <Typography
-            component='div'
-            variant='h5'
-            sx={{ marginTop: '0.85rem' }}
+            sx={{
+              fontSize: '1rem',
+              marginTop: '0.85rem',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
           >
             {name}
           </Typography>
-          <Typography
-            variant='subtitle1'
-            component='div'
-            sx={{ color: 'text.secondary' }}
-          >
+          <Typography sx={{ fontSize: '0.75rem', color: 'text.secondary' }}>
             {price}$
           </Typography>
         </CardContent>
@@ -77,8 +81,8 @@ const ShoppingCartItem = ({
 };
 
 ShoppingCartItem.propTypes = {
-  increaseQuantity: PropTypes.func.isRequired,
   decreaseQuantity: PropTypes.func.isRequired,
+  increaseQuantity: PropTypes.func.isRequired,
   product: PropTypes.object.isRequired,
   removeProductFromCart: PropTypes.func.isRequired,
 };

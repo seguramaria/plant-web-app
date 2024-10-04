@@ -10,13 +10,15 @@ import {
 import PropTypes from 'prop-types';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCart from './ShoppingCart';
-import YardOutlinedIcon from '@mui/icons-material/YardOutlined';
+import { Icon } from '@mui/material';
 
 const Header = ({
   cart,
   clearCart,
   decreaseQuantity,
+  icon,
   increaseQuantity,
+  name,
   removeProductFromCart,
 }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -28,14 +30,18 @@ const Header = ({
   return (
     <AppBar position='sticky' color='inherit'>
       <Toolbar sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <Button
-          variant='text'
-          color='inherit'
-          endIcon={<YardOutlinedIcon />}
-          onClick={() => console.log('click')}
-        >
+        <Button variant='text' color='inherit' href='/'>
+          {icon && (
+            <Icon
+              className='material-icons-outlined'
+              color='inherit'
+              sx={{ marginRight: '0.5rem' }}
+            >
+              {icon}
+            </Icon>
+          )}
           <Typography component='div' variant='h5'>
-            Happy Plants
+            {name}
           </Typography>
         </Button>
 
@@ -85,7 +91,9 @@ Header.propTypes = {
   cart: PropTypes.array.isRequired,
   clearCart: PropTypes.func.isRequired,
   decreaseQuantity: PropTypes.func.isRequired,
+  icon: PropTypes.string,
   increaseQuantity: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
   removeProductFromCart: PropTypes.func.isRequired,
 };
 

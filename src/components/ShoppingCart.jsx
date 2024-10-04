@@ -3,6 +3,7 @@ import ShoppingCartItem from './ShoppingCartItem';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import { Button, Stack, Typography } from '@mui/material';
 import { useMemo } from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const ShoppingCart = ({
   cart,
@@ -20,10 +21,12 @@ const ShoppingCart = ({
       ),
     [cart]
   );
+  const isDesktop = useMediaQuery('(min-width:600px)');
 
   return (
     <Stack
       sx={{
+        width: isDesktop ? 400 : '100vw',
         height: '100%',
         padding: '1rem 1.5rem',
         alignItems: 'flex-start',
@@ -46,6 +49,7 @@ const ShoppingCart = ({
           sx={{
             alignItems: 'flex-start',
             justifyContent: 'center',
+            width: '100%',
           }}
         >
           <Typography variant='h6' paddingBottom='1rem'>
