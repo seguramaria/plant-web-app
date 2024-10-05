@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import CloseIcon from '@mui/icons-material/Close';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import Typography from '@mui/material/Typography';
@@ -36,6 +37,19 @@ const ProductDetail = ({
   const isDesktop = useMediaQuery('(min-width:600px)');
   return (
     <Dialog open={open} onClose={handleClose}>
+      {!isDesktop && (
+        <IconButton
+          color='inherit'
+          onClick={handleClose}
+          sx={{
+            top: 6,
+            right: 10,
+            position: 'absolute',
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      )}
       <DialogContent>
         <Stack
           sx={{
@@ -44,6 +58,7 @@ const ProductDetail = ({
             flexDirection: isDesktop ? 'row' : 'column',
             alignItems: 'flex-start',
             justifyContent: 'center',
+            paddingTop: '1.5rem',
           }}
         >
           <CardMedia
